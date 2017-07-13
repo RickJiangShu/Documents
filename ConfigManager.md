@@ -1,5 +1,5 @@
 # 设计思路
-![](https://github.com/RickJiangShu/Documents/blob/master/ConfigManager/p1.jpg "")
+![](https://github.com/RickJiangShu/Documents/blob/master/ConfigManager/p1.jpg "")<br>
 整个流程如上图所示，所以整个思路可以分为以下四个部分：解析、反射、序列化和反序列化
 
 # 解析
