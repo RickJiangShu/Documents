@@ -1,0 +1,31 @@
+﻿using Protocol;
+using ProtoBuf;
+using System;
+using System.IO;
+
+/// <summary>
+/// 与服务器之间通信代理（由ProxyEditor自动生成，模板文件为ProxyTemplete）
+/// 代理层的存在，不仅仅是为了统一收发协议、主要还需要涉及到游戏逻辑的编写。
+/// 所以只有初始化会自动化一次，新加协议需手动添加。
+/// </summary>
+public class /*ClassName*/
+{
+#region 回调函数
+/*CallbackCode*/
+#endregion
+
+    public /*ClassName*/()
+    {
+#region 侦听启用
+/*ListenCode*/
+#endregion
+	}
+
+#region 请求函数
+/*C2SCode*/
+#endregion
+
+#region 侦听函数
+/*S2CCode*/
+#endregion
+}

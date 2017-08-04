@@ -1,0 +1,31 @@
+——定义——
+目的：将XmlDocument解析并输出成可序列化的C#代码。
+
+<menu id="file" value="File">
+  <popup>
+    <menuitem value="New" onclick="CreateNewDoc()" />
+    <menuitem value="Open" onclick="OpenDoc()" />
+    <menuitem value="Close" onclick="CloseDoc()" />
+  </popup>
+</menu>
+
+Element：被xml标签<>包围起来的。
+ElementName：Element的标志符。
+Attributes：在Elements开始标签中定义的属性。
+
+对象：包含子Elments或有Attributes的Elements。
+数组：多个相同ElmentName的Elements。
+Number：通过解析字符判断是否是数字。
+Bool：通过解析字符判断是否是Bool。
+String：非Number或Bool都是String。
+
+Declaration：声明
+Declarations：声明列表
+
+ParseElement：解析一个Element，并返回
+
+——流程——
+1. 输入一个XmlDocument
+2. 
+
+

@@ -1,0 +1,79 @@
+————	名字由来	————
+Red（瑞德），名字来源自《肖申克的救赎》中摩根弗里曼扮演的角色名字。
+
+
+————	  定位		————
+将一些游戏开发中常用的工具、组件、类库结合在一起打造一个通用有成长性的Unity开发框架。
+
+
+
+2017/1/3 更新：
+不同的游戏需求各不相同，比如有些游戏是单机的需要用Resource文件夹管理资源，而有些需要用AssetBundle管理资源；有些需要用TCP协议、有些需要用HTTP协议。
+故此将这些整合在一起会变得十分臃肿，这并不是我想见到的。
+但也许可以通过引擎或语言特性使它变得即全又轻量，比如使用编译参数之类的特性。
+
+把一些常用的、不需要根据游戏不同而变化的部分提取出来公用。也就是说这部分内容应该是游戏需要用到，但不依赖游戏的。
+所以这不止是一些代码、还是一些流程、规范、使用方法等。
+
+框架绝不依赖逻辑，框架只依赖规范。
+
+
+以下为规范，需严格按照规范！
+
+*框架相关 编译参数*
+TCP			使用TCP协议
+HTTP		使用HTTP协议
+WWW			使用资源热更新
+
+*Stream Assets*
+
+base/config.ab				所有配置
+base/bundlepathmap.ab		Bundle路径映射
+
+prefabs/xxx/xx				3D预制
+ui/prefabs/xxx/xx			UI预制
+uiatlas/xx					UI图集
+
+
+————	资源管理		————
+
+
+————	目录结构		————
+RedFramework
+	Common		
+	Components	常用组件、预制
+	Network		网络通信相关（使用TCP/IP ProtocolBuf 通信）
+	Config		策划配置相关
+	Math		数学相关
+	ObjectPool	对象池
+	Resource	资源管理
+	Utils		静态工具
+	Editor		Unity编辑器工具
+		Red/AssetBundle		AB工具
+		Red/UI			UI工具
+	Plugins		框架需要用到的插件（如Protobuf）
+	Other		其他尚未作分类
+
+
+————      代码目录		————
+RedFramework		瑞德游戏框架
+Scripts
+	Core		核心逻辑
+	Module		业务逻辑
+	Common		共有全局对象，通用对象
+		Config		自动生成的配置文件
+		Protocol	自动生成的通信协议
+		Proxy		自动生成的通信代理
+	Other		其他未分类
+	Main.cs		入口类
+
+
+————	资源目录		————
+Repository
+	Config		策划配置文件
+	Protocol	协议文件
+	Model		3D模型文件
+	Prefab		3D预制体
+	Sound		音频文件
+	UI			UI资源
+		Atlas	UI图集

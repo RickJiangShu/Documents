@@ -1,0 +1,71 @@
+# 解析和序列化 Json/Xml
+
+# 需求描述
+很多项目喜欢使用Json或Xml配置数据。
+解析Json大多使用插件比如LitJson、JsonFx等等，或者使用Unity的JsonUtility.FromJson。
+解析Xml大多使用C#的XmlDocument。
+
+下面我们从**配置的角度**来谈谈这几种方式的劣势（注：这里的**劣势**仅仅指**作为读取配置方案的劣势**）：<br>
+一、插件：LitJson、JsonFx等<br>
+我们先来看使用LitJson读取配置的代码片段：
+```
+JsonData jsonData = JsonMapper.ToObject(jsonStr);
+string data = (string)jsonData["glossary"]["GlossDiv"]["GlossList"]["GlossEntry"]["GlossDef"]["GlossSeeAlso"][0];
+```
+从上面的代码我们可以得出以下几个劣势：
+1. **运行时解析**，数据量巨大时性能堪忧。
+2. 需要导入插件，增大发行包体积。
+3. [""] 字符索引字段，编译器无法检查，容易出错。
+4. 索引出来的数据需要强转类型。
+
+二、JsonUtility.FromJson
+JsonUtility是Unity提供的工具，所以不需要使用插件。
+但其实它不是一个解析工具，而是一个**序列化**工具。
+因此，你需要**自行编写**对应的类，如下：
+```
+[System.Serializable]
+public class PlayerInfo
+{
+    public string name;
+    public int lives;
+    public float health;
+}
+```
+以上，我们可以总结JsonUtility的几点劣势：
+1. **运行时解析**
+2. **需要自己写对应的解析类**，浪费大量的时间且不易修改。
+
+三、XmlDocument<br>
+我们先来看一段使用XmlDocument解析Xml的代码片段：
+```
+XmlDocument document = new XmlDocument();
+document.LoadXml(xmlStr);
+float getXml = float.Parse(document.SelectSingleNode("glossary/GlossDiv/GlossList/GlossEntry/GlossDef/GlossSeeAlso").Attributes[0].InnerText);
+```
+以上，我们可以总结XmlDocument的几点劣势：
+1. **运行时解析**
+2. 字符索引数据，容易出错
+3. 索引出来的都是字符串，需要自行转换类型
+
+好了，分析了这些读取Json/Xml的方案，那么我的需求是什么呢？
+1. 自动生成Json/Xml对应的解析类
+2. 序列化在编辑器下完成
+
+# 分析
+既然要序列化，那么只有支持[Serializable]特性的Class和数组，以及String、Number和Bool这些类型可以使用。
+
+对于大多数配置这些类型就足够了，但是Json/Xml中的“嵌套数组”和“不同类型数组”如何处理？
+例如：
+```
+"popup": {
+	"menuitem": [
+		1,
+		"2",
+		true,
+		{"value": "Open", "onclick": "OpenDoc()"},
+		{"value": "Close", "onclick": "CloseDoc()"}
+	]
+}
+```
+我的做法是：把“嵌套数组”和“不同类型数组”**当作“对象”**去处理。
+
